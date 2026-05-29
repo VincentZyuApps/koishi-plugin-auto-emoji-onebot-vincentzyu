@@ -1,12 +1,14 @@
-![koishi-plugin-auto-emoji-onebot](https://socialify.git.ci/VincentZyuApps/koishi-plugin-auto-emoji-onebot/image?description=1&font=Bitter&forks=1&issues=1&language=1&logo=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Ff%2Ff3%2FKoishi.js_Logo.png&name=1&owner=1&pattern=Plus&pulls=1&stargazers=1&theme=Auto)
+![koishi-plugin-auto-emoji-onebot-vincentzyu](https://socialify.git.ci/VincentZyuApps/koishi-plugin-auto-emoji-onebot-vincentzyu/image?description=1&font=Bitter&forks=1&issues=1&language=1&logo=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Ff%2Ff3%2FKoishi.js_Logo.png&name=1&owner=1&pattern=Plus&pulls=1&stargazers=1&theme=Auto)
 
-# 🤖 koishi-plugin-auto-emoji-onebot
+# 🤖 koishi-plugin-auto-emoji-onebot-vincentzyu
 
-[![npm](https://img.shields.io/npm/v/koishi-plugin-auto-emoji-onebot?style=flat-square)](https://www.npmjs.com/package/koishi-plugin-auto-emoji-onebot)
-[![npm-download](https://img.shields.io/npm/dm/koishi-plugin-auto-emoji-onebot?style=flat-square)](https://www.npmjs.com/package/koishi-plugin-auto-emoji-onebot)
+[![npm](https://img.shields.io/npm/v/koishi-plugin-auto-emoji-onebot-vincentzyu?style=flat-square)](https://www.npmjs.com/package/koishi-plugin-auto-emoji-onebot-vincentzyu)
+[![npm-download](https://img.shields.io/npm/dm/koishi-plugin-auto-emoji-onebot-vincentzyu?style=flat-square)](https://www.npmjs.com/package/koishi-plugin-auto-emoji-onebot-vincentzyu)
 
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VincentZyuApps/koishi-plugin-auto-emoji-onebot)
-[![Gitee](https://img.shields.io/badge/Gitee-C71D23?style=for-the-badge&logo=gitee&logoColor=white)](https://gitee.com/vincent-zyu/koishi-plugin-auto-emoji-onebot)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VincentZyuApps/koishi-plugin-auto-emoji-onebot-vincentzyu)
+[![Gitee](https://img.shields.io/badge/Gitee-C71D23?style=for-the-badge&logo=gitee&logoColor=white)](https://gitee.com/vincent-zyu/koishi-plugin-auto-emoji-onebot-vincentzyu)
+
+[![QQ群](https://img.shields.io/badge/QQ群-1085190201-1AAD19?style=flat-square)](https://qm.qq.com/q/ZN7fxZ3qCq)
 
 <p>💬 插件使用问题 / 🐛 Bug反馈 / 👨‍💻 插件开发交流，欢迎加入QQ群：<b>1085190201</b> 🎉</p>
 <p>💡 在群里直接艾特我，回复的更快哦~ ✨</p>
@@ -69,8 +71,10 @@ pick-face   # alias
 
 **输出示例：**
 ```
-共 8 个表情，去重后 3 个：
-14  20  324
+📊 共 8 个表情，去重后 3 个 🎯:
+	😊 x5  (ID: 14)
+	😄 x2  (ID: 20)
+	🍬 x1  (ID: 324)
 ```
 
 ## 🗂️ 文件结构
@@ -83,13 +87,10 @@ src/
   index.ts        插件入口
 ```
 
-## 📝 更新日志
-
-> 0.0.1: 初始版本，支持自动表情回应、回复相同表情、取表情指令
-
 ## ⚠️ 注意事项
 
 - ✅ 需要安装并启用 `koishi-plugin-adapter-onebot`
 - 🎯 Lagrange 使用 `set_group_reaction` API，NapCat/LLOneBot 使用 `set_msg_emoji_like` API
+- ⚙️ 请在插件配置的「OneBot 实现平台」中选择与你实际部署一致的选项
 - 📋 取表情指令需要引用一条消息后才能使用
 - 🐛 开启 `verboseConsoleOutput` 可查看更多调试信息

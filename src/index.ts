@@ -4,7 +4,7 @@ import { Config } from './config'
 import { applyAutoReactToTarget, applyReactSameEmoji } from './emoji-react'
 import { applyPickFaceCommand } from './pick-face'
 
-export const name = 'auto-emoji-onebot'
+export const name = 'auto-emoji-onebot-vincentzyu'
 export { Config } from './config'
 
 export function apply(ctx: Context, config: Config) {

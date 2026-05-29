@@ -1,5 +1,5 @@
 {
-  "name": "koishi-plugin-auto-emoji-onebot",
+  "name": "koishi-plugin-auto-emoji-onebot-vincentzyu",
   "description": "🤖 自动给群友消息添加 QQ 表情回应 | 😊 回复相同表情 | 📋 提取消息中的 QQ 表情",
   "version": "0.1.0-beta.1+20260529",
   "main": "lib/index.js",
