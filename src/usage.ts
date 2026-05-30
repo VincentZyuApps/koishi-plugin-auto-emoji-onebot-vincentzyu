@@ -60,9 +60,9 @@ export const usage = `
 <p>💡 拿到表情 ID 后，再到「自动表情回应」的配置表格里填入对应的 QQ 号和表情 ID 即可 🎯</p>
 <p>🔍 在线查找 QQ 表情 ID：</p>
 <ul>
-  <li>📖 <a href="https://koishi.js.org/QFace/#/qqnt" target="_blank">QFace 在线查阅</a></li>
-  <li>📦 <a href="https://github.com/koishijs/QFace/blob/master/public/assets/qq_emoji/face_config.json" target="_blank">QFace face_config.json</a></li>
-  <li>🗃️ <a href="https://github.com/NapNeko/NapCatQQ/blob/main/packages/napcat-core/external/face_config.json" target="_blank">NapCatQQ face_config.json</a></li>
+  <li>📖 <a href="https://koishi.js.org/QFace/#/qqnt" target="_blank">【koishijs-QFace】 在线查阅</a></li>
+  <li>📦 <a href="https://github.com/koishijs/QFace/blob/master/public/assets/qq_emoji/face_config.json" target="_blank">【koishijs-QFace】 face_config.json</a></li>
+  <li>🗃️ <a href="https://github.com/NapNeko/NapCatQQ/blob/main/packages/napcat-core/external/face_config.json" target="_blank">【NapCatQQ】 face_config.json</a></li>
 </ul>
 
 <h3>✨ 表情 ID 输入格式（新功能）</h3>

@@ -98,9 +98,9 @@ pick-face -v   # verbose mode
 💡 拿到表情 ID 后，再到「自动表情回应」的配置表格里填入对应的 QQ 号和表情 ID 即可 🎯
 
 > 🔍 在线查找 QQ 表情 ID：
-> - 📖 [QFace 在线查阅](https://koishi.js.org/QFace/#/qqnt)
-> - 📦 [QFace face_config.json](https://github.com/koishijs/QFace/blob/master/public/assets/qq_emoji/face_config.json)
-> - 🗃️ [NapCatQQ face_config.json](https://github.com/NapNeko/NapCatQQ/blob/main/packages/napcat-core/external/face_config.json)
+> - 📖 [【koishihs-QFace】 在线查阅网页](https://koishi.js.org/QFace/#/qqnt)
+> - 📦 [【koishijs-QFace】 face_config.json](https://github.com/koishijs/QFace/blob/master/public/assets/qq_emoji/face_config.json)
+> - 🗃️ [【NapCatQQ】 face_config.json](https://github.com/NapNeko/NapCatQQ/blob/main/packages/napcat-core/external/face_config.json)
 
 ### 3. 🤖 自动表情回应
 
