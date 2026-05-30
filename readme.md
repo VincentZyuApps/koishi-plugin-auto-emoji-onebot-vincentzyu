@@ -105,3 +105,12 @@ src/
 - ⚙️ 请在插件配置的「OneBot 实现平台」中选择与你实际部署一致的选项
 - 📋 取表情指令需要引用一条消息后才能使用
 - 🐛 开启 `verboseConsoleOutput` 可查看更多调试信息
+
+## 🙏 致谢
+
+本插件的 emoji 支持功能得益于以下开源项目：
+
+- **[koishijs/QFace](https://github.com/koishijs/QFace)** - QQ 表情数据维护项目，提供了完整的 QQ 表情映射
+- **[NapCatQQ](https://github.com/NapNeko/NapCatQQ)** - 本插件使用的 `assets/face_config.json` 来自 NapCatQQ 项目的 `packages/napcat-core/external/face_config.json`
+
+感谢这些项目的贡献者们！🎉

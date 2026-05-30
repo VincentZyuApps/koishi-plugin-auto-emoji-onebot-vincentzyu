@@ -1,12 +1,13 @@
 import { Context, h } from 'koishi'
 import { Config, OneBotImpl, ONEBOT_IMPL } from './config'
+import { convertToQCid } from './face-config'
 
 /**
  * 添加表情回应
  * 根据 OneBot 实现平台调用对应的 API 添加表情回应
  * @param ctx - Koishi 上下文
  * @param session - 会话对象
- * @param emojiCode - 表情 ID
+ * @param emojiCode - 表情 ID（支持 emoji 字符、Unicode 码点、QQ ID）
  * @param impl - OneBot 实现平台（Lagrange / NapCat/LLOneBot）
  */
 export async function addEmojiReaction(
@@ -15,11 +16,15 @@ export async function addEmojiReaction(
   emojiCode: string | number,
   impl: OneBotImpl,
 ) {
+  // 尝试将 emoji/unicode 转换为 QCid
+  const qcid = convertToQCid(emojiCode)
+  const finalCode = qcid || String(emojiCode)
+
   if (impl === ONEBOT_IMPL.LAGRANGE) {
     await session.onebot._request('set_group_reaction', {
       group_id: session.channelId,
       message_id: session.event.message.id,
-      code: String(emojiCode),
+      code: finalCode,
       is_add: true,
     })
       .catch((err: Error) => {
@@ -28,7 +33,7 @@ export async function addEmojiReaction(
   } else {
     await session.onebot._request('set_msg_emoji_like', {
       message_id: session.event.message.id,
-      emoji_id: Number(emojiCode),
+      emoji_id: Number(finalCode),
     })
       .catch((err: Error) => {
         ctx.logger.error(`❌ NapCat/LLOneBot 添加表情失败: ${err.message}`);

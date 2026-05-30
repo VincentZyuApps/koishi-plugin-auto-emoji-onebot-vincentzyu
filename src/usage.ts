@@ -41,13 +41,13 @@ export const usage = `
 
 <h3>🤖 功能一览</h3>
 <ul>
-  <li>📋 <b>取表情指令</b> — 引用消息后提取其中的所有 QQ 表情，去重并排序输出。先用这个拿到表情 ID，再去配自动回应 🎯</li>
-  <li>🎯 <b>自动表情回应</b> — 对配置的 QQ 号列表中的用户，自动给他们的消息加上指定表情</li>
-  <li>😊 <b>回复相同表情</b> — 别人发 QQ 表情时，bot 自动回复相同的表情</li>
+  <li>📋 <b>取表情指令</b> — 引用消息后提取其中的所有 QQ 表情和 emoji，去重并排序输出。先用这个拿到表情 ID，再去配自动回应 🎯</li>
+  <li>🎯 <b>自动表情回应</b> — 对配置的 QQ 号列表中的用户，自动给他们的消息加上指定表情（支持 emoji 字符、Unicode 码点、QQ 表情 ID）</li>
+  <li>😊 <b>回复相同表情</b> — 别人发 QQ 表情或 emoji 时，bot 自动回复相同的表情</li>
 </ul>
 
 <h3>📋 取表情指令</h3>
-<p>引用一条包含 QQ 表情的消息，发送以下指令，先拿到表情 ID：</p>
+<p>引用一条包含 QQ 表情或 emoji 的消息，发送以下指令，先拿到表情 ID：</p>
 <ul>
   <li><code>取表情</code></li>
   <li><code>取qq表情</code> (alias)</li>
@@ -55,6 +55,20 @@ export const usage = `
 </ul>
 <p>💡 拿到表情 ID 后，再到「自动表情回应」的配置表格里填入对应的 QQ 号和表情 ID 即可 🎯</p>
 <p>🔍 也可以前往 <a href="https://koishi.js.org/QFace/#/qqnt" target="_blank">QFace</a> 在线查找所有 QQ 表情 ID ✨</p>
+
+<h3>✨ 表情 ID 输入格式（新功能）</h3>
+<p>现在支持三种表情 ID 输入格式：</p>
+<ul>
+  <li>1️⃣ <b>Emoji 字符</b>：直接输入 emoji 字符，如 <code>😊</code>、<code>👍</code>、<code>❤️</code></li>
+  <li>2️⃣ <b>Unicode 码点</b>：输入 emoji 的 Unicode 十进制码点，如 <code>128522</code>（对应 😊）</li>
+  <li>3️⃣ <b>QQ 表情 ID</b>：传统的 QQ 表情 ID，如 <code>324</code></li>
+</ul>
+<p>💡 <b>示例配置：</b></p>
+<ul>
+  <li>QQ号: <code>1830540513</code>，表情ID: <code>😊</code> ✅</li>
+  <li>QQ号: <code>1830540513</code>，表情ID: <code>128522</code> ✅</li>
+  <li>QQ号: <code>1830540513</code>，表情ID: <code>324</code> ✅</li>
+</ul>
 
 <h3>⚙️ 配置说明</h3>
 <table style="border-collapse: collapse; width: 100%;">
@@ -68,7 +82,7 @@ export const usage = `
   </tr>
   <tr>
     <td style="border: 1px solid #ddd; padding: 8px;">reactTargets</td>
-    <td style="border: 1px solid #ddd; padding: 8px;">目标用户表格：设置 QQ 号、表情 ID、是否启用</td>
+    <td style="border: 1px solid #ddd; padding: 8px;">目标用户表格：设置 QQ 号、表情 ID（支持 emoji 字符/Unicode 码点/QQ ID）、是否启用</td>
   </tr>
   <tr>
     <td style="border: 1px solid #ddd; padding: 8px;">reactSameEmoji</td>
@@ -90,6 +104,16 @@ export const usage = `
 </ul>
 
 </details>
+
+<hr>
+
+<h3>🙏 致谢</h3>
+<p>本插件的 emoji 支持功能得益于以下开源项目：</p>
+<ul>
+  <li>🎯 <a href="https://github.com/koishijs/QFace" target="_blank"><b>koishijs/QFace</b></a> - QQ 表情数据维护项目，提供了完整的 QQ 表情映射</li>
+  <li>🐱 <a href="https://github.com/NapNeko/NapCatQQ" target="_blank"><b>NapCatQQ</b></a> - 本插件使用的 <code>assets/face_config.json</code> 来自 NapCatQQ 项目的 <code>packages/napcat-core/external/face_config.json</code></li>
+</ul>
+<p>感谢这些项目的贡献者们！🎉</p>
 
 <hr>
 
