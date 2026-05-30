@@ -71,6 +71,8 @@ pick-face   # alias
 
 💡 拿到表情 ID 后，再到「自动表情回应」的配置表格里填入对应的 QQ 号和表情 ID 即可 🎯
 
+> 🔍 也可以前往 [QFace](https://koishi.js.org/QFace/#/qqnt) 在线查找所有 QQ 表情 ID ✨
+
 ### 3. 🤖 自动表情回应
 
 配置好 `reactTargets` 表格后，当列表中的用户发消息时，bot 会自动对其消息添加配置的表情。

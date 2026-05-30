@@ -37,7 +37,7 @@ export const Config: Schema<Config> = Schema.intersect([
       enabled: Schema.boolean().default(true).description('✅ 是否启用'),
     }))
       .role('table')
-      .default([{ userId: '1830540513', emojiCode: '324', enabled: true }])
+      .default([{ userId: '1830540513', emojiCode: '324', enabled: true }, { userId: '1830540513', emojiCode: '128166', enabled: true }])
       .description('🎯 目标用户配置表格<br>👤 QQ号 | 😊 表情ID | ✅ 启用'),
 
     reactSameEmoji: Schema.boolean()

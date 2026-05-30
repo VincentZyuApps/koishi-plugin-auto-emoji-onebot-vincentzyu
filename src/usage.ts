@@ -54,6 +54,7 @@ export const usage = `
   <li><code>pick-face</code> (alias)</li>
 </ul>
 <p>💡 拿到表情 ID 后，再到「自动表情回应」的配置表格里填入对应的 QQ 号和表情 ID 即可 🎯</p>
+<p>🔍 也可以前往 <a href="https://koishi.js.org/QFace/#/qqnt" target="_blank">QFace</a> 在线查找所有 QQ 表情 ID ✨</p>
 
 <h3>⚙️ 配置说明</h3>
 <table style="border-collapse: collapse; width: 100%;">
