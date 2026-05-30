@@ -1,18 +1,20 @@
 import { Schema } from 'koishi'
+import { ONEBOT_IMPL, type OneBotImpl } from './type'
 
-export const ONEBOT_IMPL = {
-  LAGRANGE: 'lagrange',
-  NAPCAT_LLBOT: 'napcat_llbot',
-} as const
+export { ONEBOT_IMPL, type OneBotImpl } from './type'
 
-export type OneBotImpl = typeof ONEBOT_IMPL[keyof typeof ONEBOT_IMPL]
-
+/**
+ * 反应目标配置
+ */
 export interface ReactionTarget {
   userId: string
   emojiCode: string
   enabled: boolean
 }
 
+/**
+ * 插件配置接口
+ */
 export interface Config {
   onebotImplName: OneBotImpl
   reactTargets: ReactionTarget[]

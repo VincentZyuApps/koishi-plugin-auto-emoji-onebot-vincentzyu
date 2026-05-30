@@ -50,11 +50,20 @@ export const usage = `
 <p>引用一条包含 QQ 表情或 emoji 的消息，发送以下指令，先拿到表情 ID：</p>
 <ul>
   <li><code>取表情</code></li>
+  <li><code>取表情 -v</code> - 显示详细信息（所有字段）</li>
   <li><code>取qq表情</code> (alias)</li>
   <li><code>pick-face</code> (alias)</li>
+  <li><code>pick-face -v</code> - verbose mode</li>
 </ul>
+<p><b>💡 普通模式：</b>显示 emoji 字符、出现次数、QCid（Unicode 码点）</p>
+<p><b>🔍 详细模式（-v）：</b>显示所有字段（QSid, QCid, AQLid, QDes, EMCode 等），适合调试和深入了解表情数据</p>
 <p>💡 拿到表情 ID 后，再到「自动表情回应」的配置表格里填入对应的 QQ 号和表情 ID 即可 🎯</p>
-<p>🔍 也可以前往 <a href="https://koishi.js.org/QFace/#/qqnt" target="_blank">QFace</a> 在线查找所有 QQ 表情 ID ✨</p>
+<p>🔍 在线查找 QQ 表情 ID：</p>
+<ul>
+  <li>📖 <a href="https://koishi.js.org/QFace/#/qqnt" target="_blank">QFace 在线查阅</a></li>
+  <li>📦 <a href="https://github.com/koishijs/QFace/blob/master/public/assets/qq_emoji/face_config.json" target="_blank">QFace face_config.json</a></li>
+  <li>🗃️ <a href="https://github.com/NapNeko/NapCatQQ/blob/main/packages/napcat-core/external/face_config.json" target="_blank">NapCatQQ face_config.json</a></li>
+</ul>
 
 <h3>✨ 表情 ID 输入格式（新功能）</h3>
 <p>现在支持三种表情 ID 输入格式：</p>

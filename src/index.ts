@@ -1,7 +1,7 @@
 import { Context } from 'koishi'
 import {} from 'koishi-plugin-adapter-onebot'
 
-import { Config } from './config'
+import { type Config, Config as ConfigSchema } from './config'
 import { applyAutoReactToTarget, applyReactSameEmoji } from './emoji-react'
 import { applyPickFaceCommand } from './pick-face'
 

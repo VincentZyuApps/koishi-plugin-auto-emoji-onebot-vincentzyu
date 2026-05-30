@@ -1,5 +1,6 @@
 import { Context, h } from 'koishi'
-import { Config, OneBotImpl, ONEBOT_IMPL } from './config'
+import { type OneBotImpl, ONEBOT_IMPL } from './type'
+import { type Config } from './config'
 import { convertToQCid } from './face-config'
 
 /**

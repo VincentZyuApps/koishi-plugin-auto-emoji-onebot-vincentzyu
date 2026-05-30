@@ -1,15 +1,18 @@
 import { Context, h } from 'koishi'
-import { convertToQCid, EMOJI_TO_QCID } from './face-config'
+import { convertToQCid, EMOJI_TO_QCID, EMOJI_QCID_TO_CONFIG, SYSFACE_QSID_TO_CONFIG } from './face-config'
 
 export function applyPickFaceCommand(ctx: Context, enabled: boolean) {
   if (!enabled) return
 
   ctx.command('取表情', '提取消息中的所有QQ表情和emoji（去重排序）')
     .alias('取qq表情', 'pick-face')
-    .action(async ({ session }) => {
+    .option('verbose', '-v 显示详细信息（所有字段）')
+    .action(async ({ session, options }) => {
       if (!session.quote) {
         return `${h.quote(session?.messageId)}❌ 请引用一条包含 QQ 表情或 emoji 的消息 📋`
       }
+
+      const isVerbose = options?.verbose || false
 
       // 提取 QQ 表情 (face 标签)
       const faces = h.select(h.parse(session.quote.content), 'face');
@@ -51,20 +54,40 @@ export function applyPickFaceCommand(ctx: Context, enabled: boolean) {
       const lines: string[] = []
 
       // 输出 QQ 表情
-      lines.push(`📱 QQ 表情: ${qqFaceCount} 个`)
+      lines.push(`→ 📱 QQ 表情: ${qqFaceCount} 个 ↓`)
       if (faceMap.size > 0) {
         const sortedFaces = [...faceMap.entries()].sort((a, b) => Number(a[0]) - Number(b[0]))
         for (const [id, data] of sortedFaces) {
-          lines.push(`\t 【${h('face', { id })} x${data.count}  (QSid: ${id}) 】`)
+          if (isVerbose) {
+            const config = SYSFACE_QSID_TO_CONFIG[id]
+            if (config) {
+              const fields = Object.entries(config).map(([k, v]) => `${k}=${v}`).join(', ')
+              lines.push(`\t 【${h('face', { id })} x${data.count}  | ${fields} 】`)
+            } else {
+              lines.push(`\t 【${h('face', { id })} x${data.count}  (QSid: ${id}) 】`)
+            }
+          } else {
+            lines.push(`\t 【${h('face', { id })} x${data.count}  (QSid: ${id}) 】`)
+          }
         }
       }
 
       // 输出 emoji
-      lines.push(`😊 Emoji: ${emojiCount} 个`)
+      lines.push(`→ 😊 Emoji: ${emojiCount} 个 ↓`)
       if (emojiMap.size > 0) {
         const sortedEmojis = [...emojiMap.entries()].sort((a, b) => Number(a[1].qcid) - Number(b[1].qcid))
         for (const [emoji, data] of sortedEmojis) {
-          lines.push(`\t 【${emoji} x${data.count}  (QCid: ${data.qcid}) 】`)
+          if (isVerbose) {
+            const config = EMOJI_QCID_TO_CONFIG[data.qcid]
+            if (config) {
+              const fields = Object.entries(config).map(([k, v]) => `${k}=${v}`).join(', ')
+              lines.push(`\t 【${emoji} x${data.count}  | ${fields} 】`)
+            } else {
+              lines.push(`\t 【${emoji} x${data.count}  (QCid: ${data.qcid}) 】`)
+            }
+          } else {
+            lines.push(`\t 【${emoji} x${data.count}  (QCid: ${data.qcid}) 】`)
+          }
         }
       }
 
