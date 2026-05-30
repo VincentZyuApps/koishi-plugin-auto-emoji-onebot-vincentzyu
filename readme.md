@@ -139,9 +139,9 @@ src/
 
 ## 🙏 致谢
 
-本插件的 emoji 支持功能得益于以下开源项目：
+本插件能够实现 QQ 内置表情贴图与 emoji 相关功能，离不开下面这些开源项目提供的参考与帮助：
 
-- **[koishijs/QFace](https://github.com/koishijs/QFace)** - QQ 表情数据维护项目，提供了完整的 QQ 表情映射 → [📖 在线查阅](https://koishi.js.org/QFace/#/qqnt)
-- **[NapCatQQ](https://github.com/NapNeko/NapCatQQ)** - 本插件使用的 `assets/face_config.json` 来自 NapCatQQ 项目的 `packages/napcat-core/external/face_config.json`
+- **[koishijs/QFace](https://github.com/koishijs/QFace)** - QQ 表情数据维护项目，提供了完整的 QQ 表情映射与查阅参考 → [📖 在线查阅](https://koishi.js.org/QFace/#/qqnt)
+- **[NapCatQQ](https://github.com/NapNeko/NapCatQQ)** - 本插件使用的 `assets/face_config.json` 参考自 NapCatQQ 项目的 `packages/napcat-core/external/face_config.json`
 
-感谢这些项目的贡献者们！🎉
+感谢这些项目的贡献者们，让这部分能力能够更顺利地落地。🎉

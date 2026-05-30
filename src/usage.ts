@@ -117,12 +117,12 @@ export const usage = `
 <hr>
 
 <h3>🙏 致谢</h3>
-<p>本插件的 emoji 支持功能得益于以下开源项目：</p>
+<p>本插件能够实现 QQ 内置表情贴图与 emoji 相关功能，离不开下面这些开源项目提供的参考与帮助：</p>
 <ul>
-  <li>🎯 <a href="https://github.com/koishijs/QFace" target="_blank"><b>koishijs/QFace</b></a> - QQ 表情数据维护项目，提供了完整的 QQ 表情映射</li>
-  <li>🐱 <a href="https://github.com/NapNeko/NapCatQQ" target="_blank"><b>NapCatQQ</b></a> - 本插件使用的 <code>assets/face_config.json</code> 来自 NapCatQQ 项目的 <code>packages/napcat-core/external/face_config.json</code></li>
+  <li>🎯 <a href="https://github.com/koishijs/QFace" target="_blank"><b>koishijs/QFace</b></a> - QQ 表情数据维护项目，提供了完整的 QQ 表情映射与查阅参考</li>
+  <li>🐱 <a href="https://github.com/NapNeko/NapCatQQ" target="_blank"><b>NapCatQQ</b></a> - 本插件使用的 <code>assets/face_config.json</code> 参考自 NapCatQQ 项目的 <code>packages/napcat-core/external/face_config.json</code></li>
 </ul>
-<p>感谢这些项目的贡献者们！🎉</p>
+<p>感谢这些项目的贡献者们，让这部分能力能够更顺利地落地。🎉</p>
 
 <hr>
 
