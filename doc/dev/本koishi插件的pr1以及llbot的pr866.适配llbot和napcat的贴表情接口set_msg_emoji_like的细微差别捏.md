@@ -105,28 +105,28 @@
 
 ```mermaid
 flowchart TD
-    Start([开始遍历 elems[index]]) --> IsSkip{index === skipIndex?}
-    IsSkip -- 是 --> DoSkip[continue: 忽略当前冗余文本]
-    DoSkip --> NextLoop([进入下一元素 index + 1])
-    IsSkip -- 否 --> CheckType{检查元素类型}
+    Start(["开始遍历 elems[index]"]) --> IsSkip{"index === skipIndex?"}
+    IsSkip -- "是" --> DoSkip["continue: 忽略当前冗余文本"]
+    DoSkip --> NextLoop(["进入下一元素 index + 1"])
+    IsSkip -- "否" --> CheckType{"检查元素类型"}
 
-    CheckType -- "普通文本 / 图片 / 视频 / At 等" --> ParseNormal[正常解析并 push 到 result]
-    CheckType -- "commonElem (serviceType === 37)" --> ParseLarge[解析 LargeFaceExtra 压入 result]
+    CheckType -- "普通文本 / 图片 / 视频 / At 等" --> ParseNormal["正常解析并 push 到 result"]
+    CheckType -- "commonElem (serviceType === 37)" --> ParseLarge["解析 LargeFaceExtra 压入 result"]
 
-    ParseLarge --> ProbeNext{探测紧邻的下一个元素\nelems[index + 1] 是否为文本?}
-    ProbeNext -- 否 --> NextLoop
-    ProbeNext -- 是 --> MatchFallback{是否命中 4 重备胎指纹?\n1. [动画表情]\n2. [faceName] 或 原生描述\n3. [骰子]\n4. [包剪锤] / [剪刀石头布]}
+    ParseLarge --> ProbeNext{"探测紧邻的下一个元素 elems[index + 1] 是否为文本?"}
+    ProbeNext -- "否" --> NextLoop
+    ProbeNext -- "是" --> MatchFallback{"是否命中备胎指纹 (动画表情 / 表情名 / 骰子 / 猜拳)?"}
 
-    MatchFallback -- 否 (是用户真实发言) --> KeepText[不做标记: 下次循环保留该文本]
-    MatchFallback -- 是 (确为冗余备胎) --> SetSkip[设置 skipIndex = index + 1]
+    MatchFallback -- "否 (是用户真实发言)" --> KeepText["不做标记: 下次循环保留该文本"]
+    MatchFallback -- "是 (确为冗余备胎)" --> SetSkip["设置 skipIndex = index + 1"]
 
     KeepText --> NextLoop
     SetSkip --> NextLoop
     ParseNormal --> NextLoop
 
-    NextLoop --> CheckEnd{是否遍历完所有 elems?}
-    CheckEnd -- 否 --> Start
-    CheckEnd -- 是 --> End([返回解析好的消息段数组 result])
+    NextLoop --> CheckEnd{"是否遍历完所有 elems?"}
+    CheckEnd -- "否" --> Start
+    CheckEnd -- "是" --> End(["返回解析好的消息段数组 result"])
 ```
 
 ---
