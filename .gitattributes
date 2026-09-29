@@ -1,7 +1,15 @@
+# 📝 文本文件统一使用 LF 换行符
 * text eol=lf
 
+# 🖼️ 图片文件按二进制格式处理
 *.png -text
 *.jpg -text
 *.ico -text
 *.gif -text
 *.webp -text
+
+# 📚 将 Markdown 文件纳入 GitHub Linguist 语言统计
+*.md text eol=lf linguist-detectable -linguist-documentation
+
+# 🙈 将自动生成的庞大配置数据文件排除在语言统计之外
+src/face.ts linguist-generated=true -linguist-detectable
