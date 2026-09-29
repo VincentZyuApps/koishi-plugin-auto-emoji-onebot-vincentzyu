@@ -1,8 +1,26 @@
 import { Context, h } from 'koishi'
 import { convertToQCid, EMOJI_TO_QCID, EMOJI_QCID_TO_CONFIG, SYSFACE_QSID_TO_CONFIG } from './face'
+import { type Config } from './config'
+import { ONEBOT_IMPL } from './type'
+import { resolveEmojiImpl } from './react'
 
-export function applyPickFaceCommand(ctx: Context, enabled: boolean) {
-  if (!enabled) return
+/** 针对未打补丁的 LLOneBot 实例，超级大表情的优雅降级 Unicode 映射表 */
+const SUPER_FACE_FALLBACK_EMOJI: Record<string, string> = {
+  '53': '🎂',   // 蛋糕
+  '74': '☀️',   // 太阳
+  '75': '🌙',   // 月亮
+  '114': '🏀',  // 篮球
+  '137': '🧨',  // 鞭炮
+  '317': '🐶',  // 菜汪
+  '324': '🫣',  // 吃糖
+  '333': '🎆',  // 烟花
+  '358': '🎲',  // 骰子
+  '359': '✊',  // 包剪锤
+  '360': '😘',  // 亲亲
+}
+
+export function applyPickFaceCommand(ctx: Context, config: Config) {
+  if (!config.enablePickFace) return
 
   ctx.command('取表情', '提取消息中的所有QQ表情和emoji（去重排序）')
     .alias('取qq表情', 'pick-face')
@@ -53,21 +71,36 @@ export function applyPickFaceCommand(ctx: Context, enabled: boolean) {
 
       const lines: string[] = []
 
+      // 检测当前会话所在 Bot 的 OneBot 实现
+      const realImpl = await resolveEmojiImpl(session, config.onebotImplName, ctx)
+      const needLLBotSuperFaceCompat = Boolean(config.llbotSuperFaceCompat && realImpl === ONEBOT_IMPL.LLBOT)
+
       // 输出 QQ 表情
       lines.push(`→ 📱 QQ 表情: ${qqFaceCount} 个 ↓`)
       if (faceMap.size > 0) {
         const sortedFaces = [...faceMap.entries()].sort((a, b) => Number(a[0]) - Number(b[0]))
         for (const [id, data] of sortedFaces) {
+          const faceCfg = SYSFACE_QSID_TO_CONFIG[id]
+          const isSuperFace = Boolean(faceCfg?.AniStickerType)
+
+          // 针对未打补丁的 LLOneBot 实例做混排截断保护
+          let faceRenderNode: any
+          if (needLLBotSuperFaceCompat && isSuperFace) {
+            const fallbackEmoji = SUPER_FACE_FALLBACK_EMOJI[id] || (faceCfg?.QDes ? faceCfg.QDes.replace(/^\//, '') : `[表情${id}]`)
+            faceRenderNode = fallbackEmoji
+          } else {
+            faceRenderNode = h('face', { id })
+          }
+
           if (isVerbose) {
-            const config = SYSFACE_QSID_TO_CONFIG[id]
-            if (config) {
-              const fields = Object.entries(config).map(([k, v]) => `${k}=${v}`).join(', ')
-              lines.push(`\t 【${h('face', { id })} x${data.count}  | ${fields} 】`)
+            if (faceCfg) {
+              const fields = Object.entries(faceCfg).map(([k, v]) => `${k}=${v}`).join(', ')
+              lines.push(`\t 【${faceRenderNode} x${data.count}  | ${fields} 】`)
             } else {
-              lines.push(`\t 【${h('face', { id })} x${data.count}  (QSid: ${id}) 】`)
+              lines.push(`\t 【${faceRenderNode} x${data.count}  (QSid: ${id}) 】`)
             }
           } else {
-            lines.push(`\t 【${h('face', { id })} x${data.count}  (QSid: ${id}) 】`)
+            lines.push(`\t 【${faceRenderNode} x${data.count}  (QSid: ${id}) 】`)
           }
         }
       }

@@ -15,10 +15,13 @@ export function clearEmojiImplCache(selfId?: string): void {
 }
 
 /**
- * 解析并确定当前 OneBot 实例的具体表情回应接口实现
+ * 解析并确定当前 OneBot 实例的具体实现平台（导出以供全局复用）
  */
-async function resolveEmojiImpl(session: any, impl: OneBotImpl, ctx: Context): Promise<OneBotRealImpl> {
+export async function resolveEmojiImpl(session: any, impl: OneBotImpl, ctx: Context): Promise<OneBotRealImpl> {
   if (impl !== ONEBOT_IMPL.AUTO) {
+    if (impl === ONEBOT_IMPL.NAPCAT_LLBOT) {
+      return ONEBOT_IMPL.NAPCAT
+    }
     return impl as OneBotRealImpl
   }
 
@@ -27,7 +30,7 @@ async function resolveEmojiImpl(session: any, impl: OneBotImpl, ctx: Context): P
     return implCache.get(selfId)!
   }
 
-  let detected: OneBotRealImpl = ONEBOT_IMPL.NAPCAT_LLBOT
+  let detected: OneBotRealImpl = ONEBOT_IMPL.NAPCAT
   try {
     const versionInfo = await (
       session.bot?.internal?.getVersionInfo?.() ||
@@ -39,18 +42,26 @@ async function resolveEmojiImpl(session: any, impl: OneBotImpl, ctx: Context): P
 
     if (appName.includes('lagrange') || hasNtProtocol) {
       detected = ONEBOT_IMPL.LAGRANGE
+    } else if (appName.includes('llonebot') || appName.includes('luckylillia') || appName.includes('llbot')) {
+      detected = ONEBOT_IMPL.LLBOT
     } else {
-      detected = ONEBOT_IMPL.NAPCAT_LLBOT
+      detected = ONEBOT_IMPL.NAPCAT
     }
 
     ctx.logger.info(
-      `[auto-emoji] ✨ 自动识别 Bot(${selfId}) 的表情回应实现为: ${detected === ONEBOT_IMPL.LAGRANGE ? 'Lagrange (set_group_reaction)' : 'NapCat/LLBot (set_msg_emoji_like)'}`
+      `[auto-emoji] ✨ 自动识别 Bot(${selfId}) 的 OneBot 实现为: ${
+        detected === ONEBOT_IMPL.LAGRANGE
+          ? 'Lagrange (set_group_reaction)'
+          : detected === ONEBOT_IMPL.LLBOT
+          ? 'LLBot (set_msg_emoji_like)'
+          : 'NapCat (set_msg_emoji_like)'
+      }`
     )
   } catch (err: any) {
     ctx.logger.warn(
-      `[auto-emoji] ⚠️ 自动探测 Bot(${selfId}) OneBot 实现失败，降级使用 NapCat/LLBot: ${err?.message || err}`
+      `[auto-emoji] ⚠️ 自动探测 Bot(${selfId}) OneBot 实现失败，降级使用 NapCat: ${err?.message || err}`
     )
-    detected = ONEBOT_IMPL.NAPCAT_LLBOT
+    detected = ONEBOT_IMPL.NAPCAT
   }
 
   implCache.set(selfId, detected)
