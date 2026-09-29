@@ -26,7 +26,7 @@ export interface Config {
 export const Config: Schema<Config> = Schema.intersect([
   Schema.object({
     onebotImplName: Schema.union([
-      Schema.const(ONEBOT_IMPL.AUTO).description('✨ 自动检测（推荐，智能识别并调用对应回应 API）'),
+      Schema.const(ONEBOT_IMPL.AUTO).description('✨🤖 自动检测（推荐，智能识别并调用对应回应 API）'),
       Schema.const(ONEBOT_IMPL.LAGRANGE).description('🧐💜 Lagrange（调用 set_group_reaction）'),
       Schema.const(ONEBOT_IMPL.NAPCAT_LLBOT).description('🐈💙 NapCat / LLOneBot（调用 set_msg_emoji_like）'),
     ])
