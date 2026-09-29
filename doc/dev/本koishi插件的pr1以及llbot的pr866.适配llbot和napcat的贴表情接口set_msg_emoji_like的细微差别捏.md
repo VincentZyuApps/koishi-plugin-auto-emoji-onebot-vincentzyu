@@ -145,8 +145,12 @@ flowchart TD
 
 ---
 
-### 阶段 3：Koishi 插件无感兼容与 PR 合并（守护生产 awa-bot，已完成 ✅）
-- **目标**：即使上游老版本 LLOneBot 未更新，Koishi 插件发出的消息也具备免疫截断能力。
+### 阶段 3：Koishi 插件临时防御妥协兼容与 PR 合并（保全生产旧版 LLOneBot 避免截断，已完成 ✅）
+- **目标**：针对上游尚未合并 PR #866、无法停机升级的旧版本 LLOneBot 实例（如 84 生产环境 `awa-bot`），提供**防御性妥协让步机制**，换取整条消息绝不被截断腰斩的底线可用性。
+- **代价与瑕疵说明**：
+  - **绝非真正的“无感兼容”**：该方案存在**肉眼可见的视觉瑕疵与体验让步**。开启后，原本应显示的 QQ 原生大头动画表情（如 324 吃糖、317 菜汪）会被强制降级替换为系统通用 Unicode Emoji（如 `🫣`、`🐶`）或文字，在 QQ 客户端无法展现原生表情动效。
+  - **纯属过渡妥协**：这是在协议端（LLOneBot）尚未修复前的“两害相权取其轻”（宁可表情降级为 Emoji，也绝不能让整句话被腰斩蒸发）。
+  - **推荐使用姿态**：默认关闭（`false`），标记为 `.experimental()`。一旦上游合并发布了修复版 LLOneBot，用户应直接升级协议端并关闭此开关，享受完全原汁原味的原生混排体验。
 - **动作**：
   1. 在 `auto-emoji-onebot-vincentzyu` 插件创建分支 `fix/llbot-super-face-compat`。
   2. `config.ts` 拆分实现枚举，采用与 `onebot-info-image` 一致的双 Emoji 风格：
@@ -156,7 +160,7 @@ flowchart TD
      - `🧐💜 Lagrange V1（调用 set_group_reaction）`
   3. 新增 `llbotSuperFaceCompat` 配置开关：
      - **属性配置**：默认关闭（`false`），明确标注 `.experimental()`。
-     - **妥协机制说明**：该配置在 description 和文档中明确标注**并非根治方案，仅为插件层的临时妥协方案**；彻底根治需要上游修复 LLOneBot 自身协议缺陷（作者已提交 PR：[LLOneBot/LuckyLilliaBot#866](https://github.com/LLOneBot/LuckyLilliaBot/pull/866)，截至 2026年9月30日 尚未合并）。
+     - **妥协机制说明**：该配置在 description 和文档中明确标注**并非根治方案，仅为插件层的临时妥协让步**；彻底根治需要上游修复 LLOneBot 自身协议缺陷（作者已提交 PR：[LLOneBot/LuckyLilliaBot#866](https://github.com/LLOneBot/LuckyLilliaBot/pull/866)，截至 2026年9月30日 尚未合并）。
      - **渲染行为**：在 `pick.ts` 提取表情时，若开启此实验性保护且当前为 LLOneBot 实例，对具有全屏动画属性的超级表情（如 324 吃糖、317 菜汪 等）智能降级输出 Unicode Emoji（如 `🫣`、`🐶`）或安全文本形态，彻底杜绝老版本客户端在图文混排时的截断崩溃。
   4. 新增 4 个小写短横线协议测试指令：`test-dice`、`test-rps`、`test-super-large`、`test-all-large-face-extra`（带 111ms 间隔）。
   5. 使用 `gh` CLI 提交 PR [#1](https://github.com/VincentZyuApps/koishi-plugin-auto-emoji-onebot-vincentzyu/pull/1) 并合并到 `main` 分支，正式 bump 版本号至 `0.3.1-beta.6+20260930`。
