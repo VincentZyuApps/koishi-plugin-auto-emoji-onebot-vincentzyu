@@ -1,5 +1,5 @@
 import { Context, h } from 'koishi'
-import { convertToQCid, EMOJI_TO_QCID, EMOJI_QCID_TO_CONFIG, SYSFACE_QSID_TO_CONFIG } from './face-config'
+import { convertToQCid, EMOJI_TO_QCID, EMOJI_QCID_TO_CONFIG, SYSFACE_QSID_TO_CONFIG } from './face'
 
 export function applyPickFaceCommand(ctx: Context, enabled: boolean) {
   if (!enabled) return

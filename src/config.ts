@@ -26,12 +26,13 @@ export interface Config {
 export const Config: Schema<Config> = Schema.intersect([
   Schema.object({
     onebotImplName: Schema.union([
-      Schema.const(ONEBOT_IMPL.LAGRANGE).description('Lagrange'),
-      Schema.const(ONEBOT_IMPL.NAPCAT_LLBOT).description('NapCat / LLOneBot'),
+      Schema.const(ONEBOT_IMPL.AUTO).description('✨ 自动检测（推荐，智能识别并调用对应回应 API）'),
+      Schema.const(ONEBOT_IMPL.LAGRANGE).description('🧐💜 Lagrange（调用 set_group_reaction）'),
+      Schema.const(ONEBOT_IMPL.NAPCAT_LLBOT).description('🐈💙 NapCat / LLOneBot（调用 set_msg_emoji_like）'),
     ])
       .role('radio')
-      .default(ONEBOT_IMPL.NAPCAT_LLBOT)
-      .description('🤖 OneBot 实现平台<br>⚠️ Lagrange 使用 set_group_reaction，NapCat/LLOneBot 使用 set_msg_emoji_like'),
+      .default(ONEBOT_IMPL.AUTO)
+      .description('🤖 OneBot 实现平台<br>⚠️ 自动模式将智能识别；Lagrange 使用 set_group_reaction，NapCat/LLOneBot 使用 set_msg_emoji_like'),
 
     reactTargets: Schema.array(Schema.object({
       userId: Schema.string().required().description('👤 QQ号'),

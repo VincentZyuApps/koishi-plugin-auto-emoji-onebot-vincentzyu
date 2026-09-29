@@ -10,7 +10,7 @@ import os
 # 读取 face_config.json
 script_dir = os.path.dirname(os.path.abspath(__file__))
 json_path = os.path.join(script_dir, '..', 'assets', 'face_config.json')
-output_path = os.path.join(script_dir, '..', 'src', 'face-config.ts')
+output_path = os.path.join(script_dir, '..', 'src', 'face.ts')
 
 with open(json_path, 'r', encoding='utf-8') as f:
     data = json.load(f)

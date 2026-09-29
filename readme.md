@@ -120,13 +120,13 @@ pick-face -v   # verbose mode
 
 ```
 src/
-├── index.ts       插件入口
-├── type.ts        类型定义（OneBotImpl, Config, ReactionTarget 等）
-├── config.ts      Schema 配置（Koishi 配置界面）
-├── emoji-react.ts 表情回应核心逻辑（addEmojiReaction + 两个 handler）
-├── pick-face.ts   取表情指令实现
-├── face-config.ts QQ Emoji 和 SysFace 配置数据（自动生成）
-└── usage.ts       插件使用说明（Koishi 控制台显示）
+├── index.ts 插件入口
+├── type.ts  类型定义（OneBotImpl, Config, ReactionTarget 等）
+├── config.ts Schema 配置（Koishi 配置界面）
+├── react.ts 表情回应核心逻辑（addEmojiReaction + 两个 handler）
+├── pick.ts  取表情指令实现
+├── face.ts  QQ Emoji 和 SysFace 配置数据（自动生成）
+└── usage.ts 插件使用说明（Koishi 控制台显示）
 ```
 
 ## ⚠️ 注意事项
