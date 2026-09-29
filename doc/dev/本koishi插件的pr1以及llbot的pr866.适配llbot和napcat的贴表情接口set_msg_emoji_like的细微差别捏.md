@@ -15,6 +15,8 @@
   1. 登录 51 机器，定位运行产物 `llbot.js`。
   2. 同时修复发送端混排降级（`serviceType: 33`）与接收端移除 `break`。
   3. 热重启 `dev2` 验证，实测已能像 NapCat 一样输出完整消息（含 324、后续文字及 Emoji）。
+- **实测成果对照**：
+  ![dev2-bot 成功发送完整混排消息，效果与 NapCat 完全一致](./dev2-bot-fixed-send-complete-message.png)
 
 ### 阶段 2：上游 TS 源码深度修复与三步闭环推进（已完成 ✅）
 
