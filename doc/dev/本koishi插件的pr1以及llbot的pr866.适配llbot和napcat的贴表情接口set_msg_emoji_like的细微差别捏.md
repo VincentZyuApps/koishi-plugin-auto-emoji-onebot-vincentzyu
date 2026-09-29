@@ -39,15 +39,19 @@
   4. 架构复盘：已在 PR #866 中发布 NapCat 与 LLOneBot 的全量文件/行号/Hash/架构差异对比评论：[查看评论](https://github.com/LLOneBot/LuckyLilliaBot/pull/866#issuecomment-5896358564)。
   5. 细节润色与提交积累：持续完善协议注释与文档索引，累计贡献 7 个高质量 Commit。
 
-### 阶段 3：Koishi 插件无感兼容与 PR 合并（守护生产 awa-bot，进行中 ⏳）
-- **目标**：即使上游老版本 LLOneBot 未更新，Koishi 插件发出的消息也具备 100% 免疫截断能力。
+### 阶段 3：Koishi 插件无感兼容与 PR 合并（守护生产 awa-bot，已完成 ✅）
+- **目标**：即使上游老版本 LLOneBot 未更新，Koishi 插件发出的消息也具备免疫截断能力。
 - **动作**：
-  1. 在 `auto-emoji-onebot-vincentzyu` 插件创建新分支 `fix/llbot-super-face-compat`。
+  1. 在 `auto-emoji-onebot-vincentzyu` 插件创建分支 `fix/llbot-super-face-compat`。
   2. `config.ts` 拆分实现枚举，采用与 `onebot-info-image` 一致的双 Emoji 风格：
-     - `✨🤖 自动检测（推荐，智能识别 NapCat / Lagrange / LLBot）`
-     - `🐈💙 NapCat`
-     - `🤖🩷 LLBot (Lucky Lillia Bot)`
-     - `🧐💜 Lagrange V1`
-  3. `pick.ts` 渲染超级表情时，针对 LLOneBot 智能输出 Unicode Emoji（如 `🫣`）或别名，视觉与 NapCat 一致且杜绝截断。
-  4. 使用本地 `gh` CLI 创建 PR 并在本地审核合并，主线 bump 版本号至 `0.3.1-beta.5+20260930`。
-  5. 在未修改代码的生产 `awa-bot` 上进行最终回归验证。
+     - `✨🤖 自动检测（推荐，智能识别 NapCat / LLBot / Lagrange）`
+     - `🐈💙 NapCat（调用 set_msg_emoji_like）`
+     - `🤖🩷 LLBot (Lucky Lillia Bot，调用 set_msg_emoji_like)`
+     - `🧐💜 Lagrange V1（调用 set_group_reaction）`
+  3. 新增 `llbotSuperFaceCompat` 配置开关：
+     - **属性配置**：默认关闭（`false`），明确标注 `.experimental()`。
+     - **妥协机制说明**：该配置在 description 和文档中明确标注**并非根治方案，仅为插件层的临时妥协方案**；彻底根治需要上游修复 LLOneBot 自身协议缺陷（作者已提交 PR：[LLOneBot/LuckyLilliaBot#866](https://github.com/LLOneBot/LuckyLilliaBot/pull/866)，截至 2026年9月30日 尚未合并）。
+     - **渲染行为**：在 `pick.ts` 提取表情时，若开启此实验性保护且当前为 LLOneBot 实例，对具有全屏动画属性的超级表情（如 324 吃糖、317 菜汪 等）智能降级输出 Unicode Emoji（如 `🫣`、`🐶`）或安全文本形态，彻底杜绝老版本客户端在图文混排时的截断崩溃。
+  4. 新增 4 个小写短横线协议测试指令：`test-dice`、`test-rps`、`test-super-large`、`test-all-large-face-extra`（带 111ms 间隔）。
+  5. 使用 `gh` CLI 提交 PR [#1](https://github.com/VincentZyuApps/koishi-plugin-auto-emoji-onebot-vincentzyu/pull/1) 并合并到 `main` 分支，正式 bump 版本号至 `0.3.1-beta.5+20260930`。
+  6. 本地 Windows LLOneBot 调试进程已退出，51 Macbook 上的 `llbot-dev2` 容器已恢复运行并配置 DNS/代理支持。

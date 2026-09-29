@@ -42,8 +42,9 @@ export const Config: Schema<Config> = Schema.intersect([
       .description('🤖 OneBot 实现平台<br>⚠️ 自动模式将智能识别；Lagrange 使用 set_group_reaction，NapCat/LLBot 使用 set_msg_emoji_like'),
 
     llbotSuperFaceCompat: Schema.boolean()
-      .default(true)
-      .description('🛡️ LLOneBot 超级表情混排截断保护<br>🛡️ 当检测到或配置为 LLOneBot 时，图文混排中的超级大表情将自动降级为 Unicode Emoji 或安全形态，确保未打补丁的老版本 LLBot 实例（如生产环境）绝不截断'),
+      .default(false)
+      .experimental()
+      .description('⚠️ 实验性：LLOneBot 超级表情混排截断妥协保护<br>🛡️ 当检测到或配置为 LLOneBot 时，图文混排中的超级大表情自动降级为 Unicode Emoji 或文字形态，避免老版本 LLBot 实例（如未打补丁的生产环境）在群聊中发生截断。<br>📌 说明：<b>此修改并非根治方案，仅为插件层的临时妥协</b>；彻底根治需上游修复 LLOneBot 自身协议缺陷（作者已发起 PR: <a href="https://github.com/LLOneBot/LuckyLilliaBot/pull/866" target="_blank">LLOneBot#866</a>，截至 2026年9月30日 尚未合并）。'),
 
     reactTargets: Schema.array(Schema.object({
       userId: Schema.string().required().description('👤 QQ号'),
