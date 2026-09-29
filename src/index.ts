@@ -4,6 +4,7 @@ import {} from 'koishi-plugin-adapter-onebot'
 import { type Config, Config as ConfigSchema } from './config'
 import { applyAutoReactToTarget, applyReactSameEmoji, clearEmojiImplCache } from './react'
 import { applyPickFaceCommand } from './pick'
+import { applyLargeFaceTestCommands } from './large'
 
 export const name = 'auto-emoji-onebot-vincentzyu'
 export { Config } from './config'
@@ -19,5 +20,6 @@ export function apply(ctx: Context, config: Config) {
 
   applyAutoReactToTarget(ctx, config);
   applyReactSameEmoji(ctx, config);
-  applyPickFaceCommand(ctx, config.enablePickFace);
+  applyPickFaceCommand(ctx, config);
+  applyLargeFaceTestCommands(ctx, config);
 }

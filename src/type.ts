@@ -8,7 +8,10 @@
  */
 export const ONEBOT_IMPL = {
   AUTO: 'auto',
+  NAPCAT: 'napcat',
+  LLBOT: 'llbot',
   LAGRANGE: 'lagrange',
+  /** 兼容旧版配置 */
   NAPCAT_LLBOT: 'napcat_llbot',
 } as const
 
@@ -16,7 +19,7 @@ export const ONEBOT_IMPL = {
  * OneBot 实现平台类型
  */
 export type OneBotImpl = typeof ONEBOT_IMPL[keyof typeof ONEBOT_IMPL]
-export type OneBotRealImpl = Exclude<OneBotImpl, typeof ONEBOT_IMPL.AUTO>
+export type OneBotRealImpl = 'napcat' | 'llbot' | 'lagrange'
 
 /**
  * 表情类型
