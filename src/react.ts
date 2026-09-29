@@ -19,9 +19,6 @@ export function clearEmojiImplCache(selfId?: string): void {
  */
 export async function resolveEmojiImpl(session: any, impl: OneBotImpl, ctx: Context): Promise<OneBotRealImpl> {
   if (impl !== ONEBOT_IMPL.AUTO) {
-    if (impl === ONEBOT_IMPL.NAPCAT_LLBOT) {
-      return ONEBOT_IMPL.NAPCAT
-    }
     return impl as OneBotRealImpl
   }
 

@@ -35,7 +35,6 @@ export const Config: Schema<Config> = Schema.intersect([
       Schema.const(ONEBOT_IMPL.NAPCAT).description('🐈💙 NapCat（调用 set_msg_emoji_like）'),
       Schema.const(ONEBOT_IMPL.LLBOT).description('🤖🩷 LLBot (Lucky Lillia Bot，调用 set_msg_emoji_like)'),
       Schema.const(ONEBOT_IMPL.LAGRANGE).description('🧐💜 Lagrange V1（调用 set_group_reaction）'),
-      Schema.const(ONEBOT_IMPL.NAPCAT_LLBOT).description('🐈💙 NapCat / LLOneBot (旧版兼容项)'),
     ])
       .role('radio')
       .default(ONEBOT_IMPL.AUTO)

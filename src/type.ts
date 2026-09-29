@@ -11,8 +11,6 @@ export const ONEBOT_IMPL = {
   NAPCAT: 'napcat',
   LLBOT: 'llbot',
   LAGRANGE: 'lagrange',
-  /** 兼容旧版配置 */
-  NAPCAT_LLBOT: 'napcat_llbot',
 } as const
 
 /**
