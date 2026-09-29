@@ -2,13 +2,14 @@
 
 # 🤖 koishi-plugin-auto-emoji-onebot-vincentzyu
 
-[![npm](https://img.shields.io/npm/v/koishi-plugin-auto-emoji-onebot-vincentzyu?style=flat-square)](https://www.npmjs.com/package/koishi-plugin-auto-emoji-onebot-vincentzyu)
-[![npm-download](https://img.shields.io/npm/dm/koishi-plugin-auto-emoji-onebot-vincentzyu?style=flat-square)](https://www.npmjs.com/package/koishi-plugin-auto-emoji-onebot-vincentzyu)
+[![npm](https://img.shields.io/npm/v/koishi-plugin-auto-emoji-onebot-vincentzyu?style=flat-square&logo=npm)](https://www.npmjs.com/package/koishi-plugin-auto-emoji-onebot-vincentzyu)
+[![npm-download](https://img.shields.io/npm/dm/koishi-plugin-auto-emoji-onebot-vincentzyu?style=flat-square&logo=npm)](https://npm-stat.com/charts.html?package=koishi-plugin-auto-emoji-onebot-vincentzyu)
 
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VincentZyuApps/koishi-plugin-auto-emoji-onebot-vincentzyu)
 [![Gitee](https://img.shields.io/badge/Gitee-C71D23?style=for-the-badge&logo=gitee&logoColor=white)](https://gitee.com/vincent-zyu/koishi-plugin-auto-emoji-onebot-vincentzyu)
 
-[![QQ群](https://img.shields.io/badge/QQ群-1085190201-1AAD19?style=flat-square)](https://qm.qq.com/q/ZN7fxZ3qCq)
+[![Koishi Forum](https://img.shields.io/badge/Koishi%20Forum-12566-5546A3?style=for-the-badge&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAABU0lEQVR42p2UQSsFYRSGnxnqLuytKWKpKFkQNsS%2FsOHPWPADLCmxU5S7UzYWNrJR7lYiRF2FeWzOMKZ7mXHqNNP5vvP2nu%2B850CY2lP4X1K31ZbaDm%2BpO%2Bpyp5wfAXVEPfRvO1JHf4AVQGbUh7j4EZ4VkrNCXPVRnf3CUBN1SH2KC28VGOV3ntRhNclZHdcAKYM11QR1oVBOXctzFlNgBTC8qmXxPQEegbVeYApIgJT6tg%2F0AdMp0B%2FBpCabK2AAmAAa%2F2GRBft1oBFPkqTAba7LCiAfQC9wClwAY1HJHepuiO29Yrsf1Dn1uiDU3RTYCtTkl1Leg8k9MB4NGgReI28rV3azgyCz0og01Xl1Uz1QX8uCTELm3UbkTF1VJ9Wr0tn3iBSGdjYG0XivE3VN3VD31PM4a3cc2tIGGI0VkTO7rLxGuiy25ejmjfqsvkSXui62TxaK03td4FXTAAAAAElFTkSuQmCC&logoColor=white)](https://forum.koishi.xyz/t/topic/12566)
+[![QQ群](https://img.shields.io/badge/QQ群-1085190201-12B7F5?style=flat-square&logo=qq&logoColor=white)](https://qm.qq.com/q/ZHj33L5cuC)
 
 <p>💬 插件使用问题 / 🐛 Bug反馈 / 👨‍💻 插件开发交流，欢迎加入QQ群：<b>1085190201</b> 🎉</p>
 <p>💡 在群里直接艾特我，回复的更快哦~ ✨</p>
@@ -93,7 +94,7 @@ pick-face -v   # verbose mode
 	【🍬 x1  | QSid=🍬, QCid=127852, AQLid=..., QDes=糖果, EMCode=... 】
 ```
 
-![取表情指令](doc/image/preview.ctx.command.取表情.png)
+![取表情指令](doc/image/preview/preview.ctx.command.取表情.png)
 
 💡 拿到表情 ID 后，再到「自动表情回应」的配置表格里填入对应的 QQ 号和表情 ID 即可 🎯
 
@@ -108,13 +109,13 @@ pick-face -v   # verbose mode
 
 > 默认配置：QQ号 `1830540513`，表情 `324`（吃糖）
 
-![自动贴指定表情](doc/image/preview.ctx.on-message.自动贴指定表情比如吃糖.png)
+![自动贴指定表情](doc/image/preview/preview.ctx.on-message.自动贴指定表情比如吃糖.png)
 
 ### 4. 😊 回复相同表情
 
 开启 `reactSameEmoji` 后，当有人在群里发 QQ 表情时，bot 会自动回复相同的表情。
 
-![自动贴相同表情](doc/image/preview.ctx.on-message.自动贴相同表情.png)
+![自动贴相同表情](doc/image/preview/preview.ctx.on-message.自动贴相同表情.png)
 
 ## 🗂️ 文件结构
 
