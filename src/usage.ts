@@ -30,10 +30,13 @@ export const usage = `
   <br>
 </p>
 
-<h2 style="color: #ff4444; font-weight: 900; font-size: 24px; margin: 20px 0;">⚠️ 重要提示：需要前置插件 <b>koishi-plugin-adapter-onebot</b> 才能正常使用捏！</h2>
-
+<h2>💬 交流反馈</h2>
+<p>🐛 Bug 反馈 / 💡 建议 / 👨‍💻 插件开发交流，欢迎加群：</p>
+<p><del>💬 插件使用问题 / 🐛 Bug反馈 / 👨‍💻 插件开发交流，欢迎加入QQ群：<b>259248174</b>   🎉（这个群G了）</del></p> 
 <p>💬 插件使用问题 / 🐛 Bug反馈 / 👨‍💻 插件开发交流，欢迎加入QQ群：<b>1085190201</b> 🎉</p>
 <p>💡 在群里直接艾特我，回复的更快哦~ ✨</p>
+
+<h2 style="color: #ff4444; font-weight: 900; font-size: 24px; margin: 20px 0;">⚠️ 重要提示：需要前置插件 <b>koishi-plugin-adapter-onebot</b> 才能正常使用捏！</h2>
 
 <p><b>💡 提示：</b>
   <a href="https://gitee.com/vincent-zyu/koishi-plugin-auto-emoji-onebot-vincentzyu" target="_blank">
