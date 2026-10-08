@@ -167,3 +167,108 @@ flowchart TD
   4. 新增 4 个小写短横线协议测试指令：`test-dice`、`test-rps`、`test-super-large`、`test-all-large-face-extra`（带 111ms 间隔）。
   5. 使用 `gh` CLI 提交 PR [#1](https://github.com/VincentZyuApps/koishi-plugin-auto-emoji-onebot-vincentzyu/pull/1) 并合并到 `main` 分支，正式 bump 版本号至 `0.3.1-beta.8+20260930`。
   6. 本地 Windows LLOneBot 调试进程已退出，51 Macbook 上的 `llbot-dev2` 容器已恢复运行并配置 DNS/代理支持。
+
+
+---
+
+## 🛠️ 本地运行与调试 LLOneBot (LuckyLilliaBot) 运维实战手册
+
+为了方便后续在本地对 LLOneBot 进行源码修改、协议对照实验与功能验证，特整理本地构建、运维与避坑方案如下：
+
+### 1. 代码修改与主程序构建
+
+- **源码与工作目录**：`D:\temp\gemini\LuckyLilliaBot`
+- **构建命令**：
+  ```bash
+  # 在根目录下构建主进程产物 dist/llbot.js
+  npm run build
+  # 或者：yarn build
+  ```
+- ⚠️ **重大暗坑（构建清理破坏 WebUI 静态资源）**：
+  主工程的 `vite build` 默认会在构建时刷新/重写 `dist/` 目录！如果在本地重新执行了 `npm run build`，原本位于 `dist/webui/` 的前端产物会被清空抹掉，导致后续访问 WebUI 时触发 500 报错。
+
+---
+
+### 2. 官方原版紫色 WebUI 正常恢复方案
+
+当在本地浏览器访问 `http://localhost:3080/` 出现 **`500 Internal Server Error`** 时，根因百分之百是 Hono 静态服务中间件在 `dist/webui/index.html` 路径找不到文件抛出了 `ENOENT`。
+
+恢复官方同款紫色主题界面的两种可靠手段：
+
+#### 手段 A：从现役服务器/容器秒级同步（推荐最快最稳）
+从已部署好的环境（如 51 Macbook 上的 `llbot-dev2`）拉取预编译好的静态资产：
+```bash
+# 从 51 机器拉取已构建好的 webui 目录
+scp -r -o BatchMode=yes -o StrictHostKeyChecking=no root@192.168.31.51:/opt/llbot-dev2/llonebot/webui D:\temp\gemini\LuckyLilliaBot\dist\webui
+
+# 注意：若 scp 产物落在了 dist/webui/webui，需将文件平移至 dist/webui/ 根层：
+# 确保 dist/webui/index.html、dist/webui/assets/*.js、dist/webui/assets/*.css 路径层级正确
+```
+
+#### 手段 B：本地从源码编译官方前端
+`LuckyLilliaBot` 的官方 WebUI 是位于 `src/webui/FE` 的独立 React + Tailwind 前端应用：
+```bash
+# 1. 安装前端构建依赖
+npm --prefix src/webui/FE install
+
+# 2. 触发前端编译（产物会自动输出至 ../../../dist/webui）
+npm --prefix src/webui/FE run build
+# 或者直接在根目录执行：
+npm run build-webui
+```
+
+**验证 WebUI 是否正常就绪**：
+```bash
+node -e "Promise.all([fetch('http://127.0.0.1:3080/').then(r => r.status), fetch('http://127.0.0.1:3080/assets/index-DzmkRnk3.js').then(r => r.status)]).then(console.log)"
+# 输出 [200, 200] 即代表官方紫色 WebUI 完美运行！
+```
+
+---
+
+### 3. 本地启动与网络配置
+
+1. **防冲突前置准备**：
+   - 若远程测试机（如 51 机器）正在运行同一 QQ 号（如 `2609792017`），先在远程机执行暂停，避免踢线冲突：
+     ```bash
+     ssh root@192.168.31.51 "docker stop llbot-dev2"
+     ```
+2. **连接本地 Koishi**：
+   - 配置文件：`data/config_2609792017.json` 或 `default_config.json`
+   - 反向 WebSocket 配置指向本地开发环境 Koishi：
+     ```json
+     {
+       "ws": {
+         "enable": true,
+         "urls": ["ws://127.0.0.1:15140/onebot/v11/ws"]
+       },
+       "webui": {
+         "enable": true,
+         "host": "0.0.0.0",
+         "port": 3080
+       }
+     }
+     ```
+3. **带 QQ 号启动运行**：
+   ```bash
+   node dist/llbot.js -q 2609792017
+   ```
+
+---
+
+### 4. 扫码登录与验证手段
+
+- **WebUI 界面扫码**：直接用浏览器打开 `http://localhost:3080/`，在紫色官方界面中查看并使用手机 QQ 扫码。
+- **本地图片查看**：二维码图片自动生成并保存在 `data/temp/login-qrcode.png`。
+- **在线链接打开**：控制台日志会输出 `https://txz.qq.com/p?k=...` 扫码网址。
+- **Session 缓存**：首次扫码登录成功后，登录凭证会自动写入 `data/qq-session-2609792017.json`，下次启动只要凭据未过期即可秒级免扫码自动恢复连接。
+
+---
+
+### 5. 常见运维故障排查（Troubleshooting）
+
+| 异常现象 | 核心根因 | 快速解决措施 |
+| :--- | :--- | :--- |
+| 打开 `http://localhost:3080/` 报 `500 Internal Server Error` | `npm run build` 清空了 `dist/webui`，缺少 `index.html` | 执行手段 A（从 51 机器 scp `webui`）或手段 B（`npm run build-webui`）恢复前端 |
+| 启动报 `retCode=-10003` 身份验证失败 | 本地持久化的 session 凭证已过期失效 | 无需恐慌，直接打开终端或 WebUI 扫码重新授权一次即可 |
+| 无法拉取二维码 / 提示网络异常 | 本机 VPN/代理接管了回环或腾讯 IP 流量 | 将本机代理配置为绕过局域网，或临时在命令行仅赋予必要的代理环境变量 |
+| 端口 `3080` 被占用 | 旧的 node 调试进程未正常退出 | 在 PowerShell 中运行 `Get-NetTCPConnection -LocalPort 3080` 查出 PID 并 `Stop-Process -Id <PID> -Force` |
