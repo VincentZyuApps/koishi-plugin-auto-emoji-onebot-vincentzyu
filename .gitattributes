@@ -8,8 +8,14 @@
 *.gif -text
 *.webp -text
 
-# 📚 将 Markdown 文件纳入 GitHub Linguist 语言统计
-*.md text eol=lf linguist-detectable -linguist-documentation
-
 # 🙈 将自动生成的庞大配置数据文件排除在语言统计之外
 src/face.ts linguist-generated=true -linguist-detectable
+
+# 📚 将所有 Markdown 与 README 纳入 GitHub Linguist 语言统计
+README.md linguist-language=Markdown linguist-detectable=true linguist-documentation=false
+readme.md linguist-language=Markdown linguist-detectable=true linguist-documentation=false
+*.md linguist-language=Markdown linguist-detectable=true linguist-documentation=false
+docs/**/*.md linguist-language=Markdown linguist-detectable=true linguist-documentation=false
+
+# ⚙️ 将配置文件本身纳入 GitHub Linguist 语言统计
+.gitattributes linguist-language=gitattributes linguist-detectable=true linguist-documentation=false -linguist-vendored -linguist-generated
